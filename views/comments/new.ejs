@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <h1 style="text-align: center">Добавить комментарий к <%= cafe.name %></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/cafes/<%= cafe._id %>/comments" method="POST">
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" name="comment[text]" placeholder="Текст комментария"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Отправить!</button>
+                </div>
+            </form>
+            <a href="/cafes">Назад</a>
+        </div>
+    </div>
+
+<% include ../partials/footer %>

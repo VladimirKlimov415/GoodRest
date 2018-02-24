@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <h1 style="text-align: center">Создать новое заведение</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/cafes" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="Название" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="URL изображения" required>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="number" name="cost" placeholder="Средний чек" step="0.01" min="0" required>
+                </div>
+               <div class="form-group">
+                    <label for="location">Адрес (для корректной работы указывайте в формате "улица, номер дома, город")</label>
+                    <input class="form-control" type="text" name="location" id="location" placeholder="Ленина 45, Пермь" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" name="description" placeholder="Описание (необязательно)"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Отправить!</button>
+                </div>
+            </form>
+            <a href="/cafes">Назад</a>
+        </div>
+    </div>
+    
+<% include ../partials/footer %>

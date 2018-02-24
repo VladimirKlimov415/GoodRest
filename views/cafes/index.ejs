@@ -1,0 +1,34 @@
+<% include ../partials/header %> 
+
+ 
+     <header class="jumbotron">
+         <div class="container text-center">
+             <h1>Добро пожаловать на GoodRest!</h1>
+             <p>Здесь вы можете посмотреть и выбрать лучшее кафе или ресторан</p>
+             <p>
+                <a class="btn btn-primary btn-large" href="/cafes/new">Добавить новое заведение</a>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% cafes.forEach(function(cafe){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                   <img src="<%= cafe.image %>">
+                   <div class="caption">
+                       <h4><%= cafe.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/cafes/<%= cafe._id %>" class="btn btn-primary">Подробнее</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+     
+   
+
+
+<% include ../partials/footer %>

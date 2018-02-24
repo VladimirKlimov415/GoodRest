@@ -1,0 +1,88 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <div class= "col-md-3">
+            <div id="map"></div>
+        </div>
+        <div class="col-md-8">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= cafe.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">Средний чек: <%= cafe.cost %> руб.</h4>
+                    <h4><%=cafe.name%></h4>
+                    <p><%=cafe.description %></p>
+                    <p>
+                        <em>Отправлено <%= cafe.author.username %>, <%= moment(cafe.createdAt).fromNow()%></em>
+                    </p>
+                    <% if(currentUser && cafe.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" href="/cafes/<%= cafe._id %>/edit">Редактирование</a>
+                        <form id="delete-form" action="/cafes/<%= cafe._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Удаление</button>
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/cafes/<%= cafe._id %>/comments/new"> <i class="fas fa-comment"></i> Добавить новый комментарий</a>
+                </div>
+                <hr>
+                <% cafe.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/cafes/<%=cafe._id %>/comments/<%=comment._id %>/edit">Редактирование</a>
+                            <form id="delete-form" action="/cafes/<%=cafe._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Удаление">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class= "col-md-1">
+            
+        </div>
+    </div>
+    <script>
+      function initMap() {
+        var lat = <%= cafe.lat %>;
+        var lng = <%= cafe.lng %>;
+    
+         
+        var uluru = {lat: lat, lng: lng};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: uluru,
+          scrollwheel:true
+        });
+        var contentString = `
+          <strong><%= cafe.name %><br />
+          <%= cafe.location %></strong>
+          <p><%= cafe.description %></p>
+        `
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkVJANFSzcD8TwdLkDRHZf8XfMV9pq04g&callback=initMap">
+    </script>
+
+
+<% include ../partials/footer %>

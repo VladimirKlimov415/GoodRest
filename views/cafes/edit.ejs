@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <h1 style="text-align: center">Редактирование <%= cafe.name %></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/cafes/<%= cafe._id %>?_method=PUT" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" value="<%= cafe.name %>" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" value="<%= cafe.image %>" required>
+                </div>
+                <div class="form-group">
+                     <input class="form-control" type="number" name="cost" value="<%= cafe.cost %>" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Адрес (для корректной работы указывайте в формате "улица, номер дома, город")</label>
+                    <input class="form-control" type="text" name="location" id="location" value="<%= cafe.location %>" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" name="description"><%= cafe.description %></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Отправить!</button>
+                </div>
+            </form>
+            <a href="/cafes">Назад</a>
+        </div>
+    </div>
+
+<% include ../partials/footer %>
