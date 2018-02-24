@@ -26,7 +26,9 @@ var geocoder = NodeGeocoder(options);
 
 
 
-mongoose.connect("mongodb://localhost/goodrest");
+//mongoose.connect("mongodb://localhost/goodrest");
+mongoose.connect("mongodb://vladimir:2307961145Ml@ds247078.mlab.com:47078/goodrest");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
