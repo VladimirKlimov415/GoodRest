@@ -26,9 +26,9 @@ var geocoder = NodeGeocoder(options);
 
 
 
-//mongoose.connect("mongodb://localhost/goodrest");
+mongoose.connect("mongodb://localhost/goodrest");
 
-mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect(process.env.DATABASEURL);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");

@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h3>Мои заведения:</h3>
+		<ul>
+		<% cafes.forEach(function(cafe) { %>
+			<li><a href="/cafes/<%= cafe.id %>"><%= cafe.name %></a></li>
+		<% }); %>
+		</ul>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h3>Мои комментарии:</h3>
+		<ul>
+		<% comments.forEach(function(comment) { %>
+			<li><%= comment.text %> - <a href="/cafes/<%= comment.cafe.id %>"><%=comment.cafe.name %></a></li>
+		<% }); %>
+		</ul>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<% include ../partials/footer %>

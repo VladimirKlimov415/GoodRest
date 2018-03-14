@@ -30,8 +30,11 @@ router.post("/",middleware.isLoggedIn,function(req, res){
                console.log(err);
            } else {
                //add username and id to comment
+               
                comment.author.id = req.user._id;
                comment.author.username = req.user.username;
+               comment.cafe.id = cafe._id;
+               comment.cafe.name = cafe.name;
                //save comment
                comment.save();
                cafe.comments.push(comment);

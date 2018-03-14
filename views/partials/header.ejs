@@ -3,7 +3,7 @@
     <head>
         <!-- Make site responsive on mobile/tablet -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>GoodRest - выбери завдение</title>
+        <title>GoodRest - выбери заведение</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/stylesheets/main.css">
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
@@ -28,9 +28,10 @@
               <ul class="nav navbar-nav navbar-right">
                     <% if(!currentUser){ %>
                           <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login"><i class="fas fa-arrow-alt-circle-right"></i> Войти</a></li>
-                          <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register"><i class="far fa-address-card"></i> Зарегистрироваться</a></li>
+                          <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : ''%>"><a href="/register"><i class="far fa-address-card"></i> Зарегистрироваться</a></li>
                     <% } else { %>
                       <li><a id="currentUser">Вы вошли как <%= currentUser.username %></a></li>
+                      <li class="<%= typeof page !== 'undefined' && page === 'profile' ? 'active' : '' %>"><a href="/users/<%= currentUser.id %>">Личный кабинет</a></li>
                       <li><a href="/logout"><i class="fas fa-arrow-alt-circle-left"></i> Выйти</a></li>
                     <% } %>   
                  

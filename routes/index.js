@@ -2,8 +2,9 @@ var express = require("express");
 var router  = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-
-
+var Cafe = require("../models/cafe");
+var Comment = require("../models/comment");
+var middleware = require("../middleware");
 
 //корневой маршрут
 router.get("/", function(req, res){
@@ -54,6 +55,31 @@ router.get("/logout", function(req, res){
    res.redirect("/cafes");
 });
 
-
+//личный кабинет
+router.get("/users/:id", middleware.isLoggedIn, function(req, res) {
+  User.findById(req.params.id, function(err, foundUser) {
+    if(err) {
+      req.flash("error", "Something went wrong.");
+      return res.redirect("/");
+    }
+    Cafe.find().where('author.id').equals(foundUser._id).exec(function(err, cafes) {
+      if(err) {
+        req.flash("error", "Something went wrong.");
+        return res.redirect("/");
+      }
+      Comment.find().where('author.id').equals(foundUser._id).populate({path:'name',model:'Cafe'}).exec(function(err, comments){
+         if(err) {
+            req.flash("error", "Something went wrong.");
+            return res.redirect("/");
+        }
+        
+        console.log(comments);
+       
+        res.render("users/show", {user: foundUser, cafes: cafes, comments:comments,page:'profile'});
+      })
+      
+    })
+  });
+});
 
 module.exports = router;
