@@ -3,15 +3,19 @@
     <div class="row">
         <h1 style="text-align: center">Создать новое заведение</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/cafes" method="POST">
+            <form action="/cafes" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input class="form-control" type="text" name="name" placeholder="Название" required>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="image" placeholder="URL изображения" required>
+                    <input class="form-control" type="text" name="imageReference" placeholder="URL изображения">
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="number" name="cost" placeholder="Средний чек" step="0.01" min="0" required>
+                    <label for="image">Или загрузите файл изображения</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="number" name="cost" placeholder="Средний чек" step="0.01" min="0">
                 </div>
                <div class="form-group">
                     <label for="location">Адрес (для корректной работы указывайте в формате "улица, номер дома, город")</label>
