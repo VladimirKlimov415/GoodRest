@@ -132,8 +132,10 @@ router.get("/:id", function(req, res){
                 req.flash("error", "Кафе удалено");
                 res.redirect("back");
             }
-            console.log(foundCafe)
-            res.render("cafes/show", {cafe: foundCafe});
+            else{
+                console.log(foundCafe)
+                res.render("cafes/show", {cafe: foundCafe});
+            }
         }
     });
 });
