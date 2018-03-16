@@ -18,7 +18,7 @@ router.get("/new",middleware.isLoggedIn, function(req, res){
 
 //Comments Create
 router.post("/",middleware.isLoggedIn,function(req, res){
-   //lookup campground using ID
+   
    Cafe.findById(req.params.id, function(err, cafe){
        if(err){
            console.log(err);
@@ -33,8 +33,8 @@ router.post("/",middleware.isLoggedIn,function(req, res){
                
                comment.author.id = req.user._id;
                comment.author.username = req.user.username;
-               comment.cafe.id = res.cafe._id;
-               comment.cafe.name = res.cafe.name;
+               comment.cafe.id = cafe._id;
+               comment.cafe.name = cafe.name;
                //save comment
                comment.save();
                cafe.comments.push(comment);
@@ -82,5 +82,5 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
        }
     });
 });
-
+//
 module.exports = router;
