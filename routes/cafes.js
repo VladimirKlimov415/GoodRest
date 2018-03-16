@@ -202,7 +202,7 @@ router.delete("/:id",middleware.checkCampgroundOwnership, function(req, res){
    Cafe.findByIdAndRemove(req.params.id, function(err){
       if(err){
           res.redirect("/cafes");
-    //   } else {
+      } else {
     //       Comment.findByIdAndRemove().where('cafe.id').equals(req.params.id).populate('cafe').exec(function(err,comments) {
     //           if(err) {
     //                 req.flash("error", "Что-то пошло не так.");
