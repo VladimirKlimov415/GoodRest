@@ -3,6 +3,7 @@ var router  = express.Router();
 var Cafe = require("../models/cafe");
 var middleware = require("../middleware");
 var NodeGeocoder = require('node-geocoder');
+var Comment= require("../models/comment");
 
 var options = {
   provider: 'google',
@@ -127,6 +128,10 @@ router.get("/:id", function(req, res){
         if(err){
             console.log(err);
         } else {
+            if (foundCafe === null){
+                req.flash("error", "Кафе удалено");
+                res.redirect("back");
+            }
             console.log(foundCafe)
             res.render("cafes/show", {cafe: foundCafe});
         }
@@ -197,7 +202,18 @@ router.delete("/:id",middleware.checkCampgroundOwnership, function(req, res){
    Cafe.findByIdAndRemove(req.params.id, function(err){
       if(err){
           res.redirect("/cafes");
-      } else {
+    //   } else {
+    //       Comment.findByIdAndRemove().where('cafe.id').equals(req.params.id).populate('cafe').exec(function(err,comments) {
+    //           if(err) {
+    //                 req.flash("error", "Что-то пошло не так.");
+    //                 return res.redirect("/");
+    //             }
+    //             else{
+    //                 console.log(comments);
+    //             }
+    //       });
+          
+          req.flash("success", "Заведение удалено");
           res.redirect("/cafes");
       }
    });

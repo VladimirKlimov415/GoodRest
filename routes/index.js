@@ -59,21 +59,19 @@ router.get("/logout", function(req, res){
 router.get("/users/:id", middleware.isLoggedIn, function(req, res) {
   User.findById(req.params.id, function(err, foundUser) {
     if(err) {
-      req.flash("error", "Something went wrong.");
+      req.flash("error", "Что-то пошло не так.");
       return res.redirect("/");
     }
     Cafe.find().where('author.id').equals(foundUser._id).exec(function(err, cafes) {
       if(err) {
-        req.flash("error", "Something went wrong.");
+        req.flash("error", "Что-то пошло не так.");
         return res.redirect("/");
       }
       Comment.find().where('author.id').equals(foundUser._id).populate({path:'name',model:'Cafe'}).exec(function(err, comments){
          if(err) {
-            req.flash("error", "Something went wrong.");
+            req.flash("error", "Что-то пошло не так.");
             return res.redirect("/");
         }
-        
-        console.log(comments);
        
         res.render("users/show", {user: foundUser, cafes: cafes, comments:comments,page:'profile'});
       })
@@ -81,5 +79,21 @@ router.get("/users/:id", middleware.isLoggedIn, function(req, res) {
     })
   });
 });
+// //обновление логина
+// router.put("/users/:id/newlogin", middleware.isLoggedIn, function(req, res){
+//   User.findByIdAndUpdate(req.params._id,{ $set: { username: req.body.login }}, function(err, updatedLogin){
+//       if(err){
+//           res.redirect("back");
+//       } else {
+//           console.log(updatedLogin);
+//           req.flash("success", "Успешная смена логина");
+//           res.redirect("back" );
+//       }
+//   });
+// });
+
+
+
+
 
 module.exports = router;
