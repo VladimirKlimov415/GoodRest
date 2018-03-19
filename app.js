@@ -25,11 +25,6 @@ var geocoder = NodeGeocoder(options);
  
 
 
-
-//mongoose.connect("mongodb://localhost/goodrest");
-
-mongoose.connect(process.env.DATABASEURL);
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -37,6 +32,11 @@ app.use(methodOverride("_method"));
 app.use(flash()); 
 app.locals.moment = require('moment');
 moment.locale('ru');
+
+
+// подключение к БД
+mongoose.connect("mongodb://localhost/goodrest");
+
 
 // конфигурация passport.js
 app.use(require("express-session")({
